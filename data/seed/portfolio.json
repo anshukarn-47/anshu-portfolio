@@ -1,0 +1,278 @@
+{
+  "_source": "Anshu Karn's resume (Desktop/AnshuKarn_Resume.docx, 2026-09-23) and Achievement_Bank_Updated.docx (2026-08-21). Where they differ, the newer resume wins. Nothing here is invented; fields the sources don't cover are left empty.",
+
+  "profile": {
+    "full_name": "Anshu Karn",
+    "headline": "Product manager for CRM, billing and AI platforms at 130M+ user scale",
+    "location": "Gurgaon, India",
+    "email": null,
+    "avatar_url": null,
+    "resume_url": null,
+    "social_links": { "linkedin": "https://linkedin.com/in/anshu-karn-237798117" },
+    "bio": "I'm a Product Manager with 11 years of experience, most recently owning billing, payment and CRM infrastructure at IBM for platforms serving 130M+ active users. My work spans travel-industry GDS payment systems to enterprise financial systems integration, in compliance-heavy environments where accuracy and auditability aren't optional. I'm known for making sound calls under pressure.\n\n## Experience\n\n**IBM India Pvt. Ltd., Gurgaon**\n\n- **Product Manager**, May 2019 – present\n- **Database Developer**, Mar 2017 – Apr 2019\n- **Mainframe Application Developer**, Jun 2015 – Feb 2017\n\n## Education\n\n**B.Tech., Computer Science**, University of Petroleum and Energy Studies (UPES), Dehradun, 2011 – 2015\n\n## Languages\n\nDutch (A2), German (A1)"
+  },
+
+  "skills": [
+    { "name": "JIRA", "slug": "jira", "category": "Product & Agile" },
+    { "name": "Azure DevOps", "slug": "azure-devops", "category": "Product & Agile" },
+    { "name": "Monday.com", "slug": "monday-com", "category": "Product & Agile" },
+    { "name": "Agile", "slug": "agile", "category": "Product & Agile" },
+    { "name": "SAFe", "slug": "safe", "category": "Product & Agile", "featured": true, "description": "Managed the backlog and prioritisation across 20+ Program Increments." },
+    { "name": "Scrum", "slug": "scrum", "category": "Product & Agile" },
+    { "name": "Backlog Prioritisation", "slug": "backlog-prioritisation", "category": "Product & Agile", "featured": true, "description": "Balanced new feature work against technical debt while running sprint ceremonies hands-on." },
+    { "name": "Roadmap Planning", "slug": "roadmap-planning", "category": "Product & Agile" },
+
+    { "name": "Siebel CRM", "slug": "siebel-crm", "category": "CRM & Enterprise Systems", "featured": true },
+    { "name": "Salesforce", "slug": "salesforce", "category": "CRM & Enterprise Systems" },
+    { "name": "SAP", "slug": "sap", "category": "CRM & Enterprise Systems", "featured": true, "description": "Owned the bidirectional SAP–CRM sync across 100K+ business accounts via RFCs and BAPIs." },
+    { "name": "API Design", "slug": "api-design", "category": "CRM & Enterprise Systems" },
+    { "name": "Middleware Integration", "slug": "middleware-integration", "category": "CRM & Enterprise Systems" },
+    { "name": "REST", "slug": "rest", "category": "CRM & Enterprise Systems" },
+    { "name": "SOAP", "slug": "soap", "category": "CRM & Enterprise Systems" },
+    { "name": "Webhooks", "slug": "webhooks", "category": "CRM & Enterprise Systems" },
+
+    { "name": "Python", "slug": "python", "category": "Data & Analytics" },
+    { "name": "SQL", "slug": "sql", "category": "Data & Analytics", "featured": true, "description": "Verified the data behind product decisions and automated SQL Server batch reporting." },
+    { "name": "Oracle BI", "slug": "oracle-bi", "category": "Data & Analytics" },
+    { "name": "Splunk", "slug": "splunk", "category": "Data & Analytics" },
+    { "name": "Power BI", "slug": "power-bi", "category": "Data & Analytics" },
+    { "name": "Kibana", "slug": "kibana", "category": "Data & Analytics" },
+    { "name": "Tableau", "slug": "tableau", "category": "Data & Analytics" },
+
+    { "name": "RAG-based AI", "slug": "rag-based-ai", "category": "Cloud, AI & IoT", "featured": true, "description": "Shipped a RAG knowledge platform and a RAG CRM chatbot at IBM." },
+    { "name": "LangChain", "slug": "langchain", "category": "Cloud, AI & IoT" },
+    { "name": "LLM Applications", "slug": "llm-applications", "category": "Cloud, AI & IoT" },
+    { "name": "Oracle Cloud Infrastructure (OCI)", "slug": "oci", "category": "Cloud, AI & IoT" },
+    { "name": "Microsoft Azure", "slug": "microsoft-azure", "category": "Cloud, AI & IoT" },
+    { "name": "IoT Devices", "slug": "iot-devices", "category": "Cloud, AI & IoT" },
+
+    { "name": "Microsoft Power Automate", "slug": "power-automate", "category": "Automation & DevOps", "description": "Rolled out RPA across 40+ business processes." },
+    { "name": "RPA", "slug": "rpa", "category": "Automation & DevOps" },
+    { "name": "Selenium", "slug": "selenium", "category": "Automation & DevOps" },
+    { "name": "Jenkins", "slug": "jenkins", "category": "Automation & DevOps" },
+
+    { "name": "Figma", "slug": "figma", "category": "Prototyping" },
+    { "name": "Lovable", "slug": "lovable", "category": "Prototyping" },
+    { "name": "v0", "slug": "v0", "category": "Prototyping" },
+    { "name": "Claude", "slug": "claude", "category": "Prototyping" },
+    { "name": "Framer", "slug": "framer", "category": "Prototyping" },
+    { "name": "Power Apps", "slug": "power-apps", "category": "Prototyping" }
+  ],
+
+  "work": [
+    {
+      "slug": "crm-mobile-platforms",
+      "title": "CRM and mobile platforms for 130M+ users",
+      "subtitle": "Sole product owner across 4 business units",
+      "category": "Product",
+      "company": "IBM",
+      "role": "Product Manager",
+      "featured": true,
+      "summary": "As sole product owner, led the end-to-end product lifecycle for data-driven CRM and mobile platforms serving 130M+ users across 4 business units, with a cross-functional team of 20+ engineers, QAs and UX designers.",
+      "users": "130M+ users, including an 18M+ active user base on the mobile apps. Stakeholders ranged from C-suite and senior business leaders in Poland, Nepal and Sri Lanka to field operations teams, retail distributors and end consumers.",
+      "approach": "- Defined use cases and success KPIs for the platforms.\n- Ran UAT and A/B tests with 300+ end users to check product behaviour against real workflows.\n- Led an in-person rollout to 500+ field users and used their structured feedback to shape post-launch backlog priorities.\n- Managed the backlog across 20+ Program Increments in JIRA and SAFe, balancing new features against technical debt, and used SQL to verify the data behind product decisions before it reached reporting.\n- Defined what business leaders needed to see for real-time decisions, then worked with data engineers to build Kibana dashboards and Oracle BI pipelines against that spec.\n- Translated ground-level feedback into roadmap decisions and explained product trade-offs back up the chain in strategy and roadmap reviews.",
+      "outcome": "A 25% uplift in customer engagement and a 22% improvement in satisfaction. App store ratings rose from 3.4 to 4.5+ across ~2M reviews, and stakeholder reviews moved from monthly lagging reports to live operational visibility.",
+      "metrics": [
+        { "label": "Customer engagement", "value": 25, "unit": "%", "context": "uplift" },
+        { "label": "Customer satisfaction", "value": 22, "unit": "%", "context": "improvement" },
+        { "label": "App store rating", "value": 4.5, "unit": "+", "context": "up from 3.4 across ~2M reviews" },
+        { "label": "Users served", "value": 130, "unit": "M+" }
+      ],
+      "skills": ["jira", "safe", "backlog-prioritisation", "roadmap-planning", "sql", "kibana", "oracle-bi", "siebel-crm"]
+    },
+    {
+      "slug": "rag-llm-chatbot",
+      "title": "RAG-based LLM chatbot",
+      "subtitle": "Phased launch across 6 business units",
+      "category": "AI",
+      "company": "IBM",
+      "role": "Product Manager",
+      "featured": true,
+      "summary": "Owned the full product launch of a RAG-based LLM chatbot, from stakeholder alignment and vendor evaluation to a phased rollout across 6 business units. Almost 100,000 users, 320+ hours saved a month and a 30% faster L1 turnaround within 90 days.",
+      "problem": "Manual L1 support and documentation lookups were consuming significant team time across business units, and there was an opportunity to apply generative AI to reduce that load.",
+      "users": "Internal teams across 6 business units handling L1 support and documentation lookups.",
+      "approach": "- Aligned stakeholders and led the vendor evaluation.\n- Defined acceptance criteria, KPIs and a change management plan for internal adoption.\n- Rolled out in phases across 6 business units and drove internal change management to support adoption.",
+      "decisions": [
+        { "title": "Phased rollout with a change management plan", "choice": "Rolled the chatbot out in phases across 6 business units, backed by a change management plan for internal adoption." }
+      ],
+      "outcome": "Within 90 days of go-live: almost 100,000 users, 320+ man-hours saved every month, and a 30% reduction in L1 ticket turnaround time.",
+      "metrics": [
+        { "label": "Users", "value": 100000, "context": "almost, across 6 business units" },
+        { "label": "Hours saved per month", "value": 320, "unit": "+" },
+        { "label": "Faster L1 turnaround", "value": 30, "unit": "%", "context": "within 90 days of go-live" }
+      ],
+      "skills": ["rag-based-ai", "llm-applications"]
+    },
+    {
+      "slug": "genai-knowledge-platform",
+      "title": "Generative AI knowledge platform",
+      "subtitle": "RAG search over 10,000+ pages of CRM documentation",
+      "category": "AI",
+      "company": "IBM",
+      "role": "Product Manager",
+      "featured": true,
+      "summary": "Led end-to-end development of a RAG-based knowledge platform for CRM technical query resolution, cutting manual documentation lookup effort by about half. Registered as an IBM internal asset.",
+      "problem": "CRM technical query resolution relied on manual documentation lookup, which was slow and inconsistent.",
+      "users": "Teams resolving CRM technical queries.",
+      "approach": "Processed 10,000+ pages of documentation into a FAISS vector database and integrated GPT-4o to power semantic search and context-aware responses.",
+      "outcome": "About a 50% reduction in manual documentation lookup effort. The platform was registered as an IBM internal asset, pending production announcement.",
+      "metrics": [
+        { "label": "Documentation pages indexed", "value": 10000, "unit": "+" },
+        { "label": "Less manual lookup effort", "value": 50, "unit": "%", "context": "approximate reduction" }
+      ],
+      "architecture": {
+        "summary": "Retrieval-augmented generation over the CRM documentation set.",
+        "components": [
+          { "name": "FAISS vector database", "description": "Holds 10,000+ pages of CRM documentation for semantic search." },
+          { "name": "GPT-4o", "description": "Generates context-aware responses from the retrieved documentation." }
+        ]
+      },
+      "skills": ["rag-based-ai", "llm-applications"]
+    },
+    {
+      "slug": "demand-surge-zero-outage",
+      "title": "Zero outage through a 4–5x demand surge",
+      "subtitle": "Real-time prioritisation for 130M+ users",
+      "category": "Platform",
+      "company": "IBM",
+      "role": "Product Manager",
+      "featured": true,
+      "summary": "When the Iran conflict triggered a sudden 4–5x demand surge, made real-time prioritisation calls as sole product owner that kept the platform up for 130M+ users.",
+      "problem": "The Iran conflict triggered a sudden 4–5x demand surge with no warning or lead time: IVRS traffic jumped from 10,000 to 40,000 requests per second, and mobile/portal traffic from 3,000 to 18,000 requests per second.",
+      "users": "130M+ users relying on core booking and emergency functions across IVRS, mobile and portal channels.",
+      "approach": "As sole product owner, made real-time prioritisation calls: deprioritised non-critical features to protect core booking and emergency functions under extreme load.",
+      "decisions": [
+        {
+          "title": "Protect core booking and emergency functions",
+          "context": "Demand rose 4–5x across IVRS, mobile and portal channels with no lead time.",
+          "choice": "Deprioritised non-critical features in real time.",
+          "tradeoffs": "Non-critical features were set aside during the surge to preserve the functions that mattered most."
+        }
+      ],
+      "outcome": "Zero platform outage across 130M+ users during the surge.",
+      "metrics": [
+        { "label": "Peak IVRS load", "value": 40000, "unit": "req/sec", "context": "up from 10,000" },
+        { "label": "Peak mobile/portal load", "value": 18000, "unit": "req/sec", "context": "up from 3,000" },
+        { "label": "Users kept online", "value": 130, "unit": "M+", "context": "with zero platform outage" }
+      ],
+      "skills": ["backlog-prioritisation"]
+    },
+    {
+      "slug": "petroleum-logistics",
+      "title": "Petroleum and petrochemical logistics solution",
+      "subtitle": "Cutting cylinder diversion from ~20% to ~3%",
+      "category": "Supply chain",
+      "company": "IBM",
+      "role": "Product Manager",
+      "featured": true,
+      "summary": "Defined and owned a CRM- and mobile-app-integrated logistics solution across every B2B and B2C business unit, reducing cylinders diverted to the black market from about 20% to about 3%.",
+      "problem": "Cooking cylinder distribution, automotive fuel shipments and petrochemical shipments had no integrated system to track shipment quality, detect adulteration or optimise truck loads. That led to product diversion, with cylinders resold on the black market, and inefficient, under-utilised transport.",
+      "users": "B2B and B2C business units across the full path from bottling plants and refineries to warehouses, fuel stations and end consumers.",
+      "approach": "- Defined requirements, designed prototype screens and owned the shipment optimisation logic.\n- Covered cooking cylinder distribution (bottling plant to warehouse to end consumer, including rebranding and defect handling), automotive fuel shipment tracking (refinery to fuel stations) and petrochemical shipment consolidation (refinery to warehouse).\n- Integrated with SAP ERP for order and truck-load management.\n- Led and tested the implementation across every business unit.",
+      "decisions": [
+        { "title": "Track fuel-density variance", "choice": "Introduced fuel-density variance tracking to surface adulteration, with clearer visibility into cylinder damage and warehouse inventory." },
+        { "title": "Consolidate petrochemical orders", "choice": "Built logic to consolidate multiple petrochemical orders onto shared truck loads from refineries to warehouses." }
+      ],
+      "outcome": "Cylinders diverted to the black market fell from approximately 20% to approximately 3%, and order consolidation improved truck utilisation.",
+      "metrics": [
+        { "label": "Cylinders diverted", "value": 3, "unit": "%", "context": "down from ~20%" }
+      ],
+      "architecture": {
+        "summary": "A logistics solution integrated with the CRM and mobile apps, working with SAP ERP for order and truck-load management.",
+        "components": [
+          { "name": "CRM and mobile apps", "description": "Shipment tracking, damage and inventory visibility across B2B and B2C units." },
+          { "name": "SAP ERP", "description": "Order and truck-load management." }
+        ]
+      },
+      "skills": ["sap"]
+    },
+    {
+      "slug": "sap-crm-billing",
+      "title": "SAP–CRM integration and consumer billing",
+      "subtitle": "Bidirectional sync across 100K+ business accounts",
+      "category": "Billing & integration",
+      "company": "IBM",
+      "role": "Product Manager",
+      "summary": "Sole owner of the bidirectional SAP–CRM sync (the system of record) across 100K+ business accounts, and of the CRM-based consumer billing system across 3 business units, including payment gateway integration.",
+      "users": "100K+ business accounts, and consumers billed across 3 business units.",
+      "approach": "- Owned the bidirectional SAP–CRM sync via RFCs and BAPIs.\n- Owned the CRM-based consumer billing system across 3 business units, including payment gateway integration.\n- Ensured settlement-accurate master data, billing operations and reconciliations at scale.",
+      "metrics": [
+        { "label": "Business accounts synced", "value": 100, "unit": "K+" },
+        { "label": "Business units billed", "value": 3 }
+      ],
+      "skills": ["sap", "api-design", "middleware-integration", "siebel-crm"]
+    },
+    {
+      "slug": "flutter-migration",
+      "title": "Native-to-Flutter mobile migration",
+      "subtitle": "Business case, prototypes and delivery",
+      "category": "Mobile",
+      "company": "IBM",
+      "role": "Product Manager",
+      "summary": "Built the business case for moving the mobile portfolio from native to Flutter, validated it with clickable prototypes for 3 apps, then led the migration of 2 apps, driving a ~5M increase in user adoption within a quarter.",
+      "problem": "The mobile portfolio was built natively, creating an opportunity to evaluate a cross-platform migration to Flutter.",
+      "approach": "- Proposed and built the business case for the migration.\n- Built clickable prototypes for 3 apps to validate feasibility and secure stakeholder buy-in.\n- Led development and execution of the migration for 2 apps.",
+      "outcome": "A ~5M increase in user adoption within one quarter.",
+      "metrics": [
+        { "label": "More users", "value": 5, "unit": "M", "context": "increase in adoption within one quarter" },
+        { "label": "Apps prototyped", "value": 3 },
+        { "label": "Apps migrated", "value": 2 }
+      ],
+      "skills": ["roadmap-planning"]
+    },
+    {
+      "slug": "rpa-automation",
+      "title": "RPA and process automation rollout",
+      "subtitle": "40+ business processes automated",
+      "category": "Automation",
+      "company": "IBM",
+      "role": "Product Manager",
+      "summary": "Mentored the team to build RPA capability from scratch, then rolled out Microsoft Power Automate across 40+ business processes, saving ~400 hours of manual work a month.",
+      "problem": "Manual, repetitive business processes were consuming team capacity, and the team had no automation capability yet.",
+      "approach": "- Mentored the team to learn RPA.\n- Rolled out RPA across 40+ business processes using Microsoft Power Automate.\n- Built small Python automations to support the work.",
+      "outcome": "About 400 hours of manual work saved a month, roughly a 20% efficiency gain.",
+      "metrics": [
+        { "label": "Processes automated", "value": 40, "unit": "+" },
+        { "label": "Manual work saved", "value": 400, "unit": "hrs/mo", "context": "approximate" },
+        { "label": "Efficiency gain", "value": 20, "unit": "%", "context": "approximate" }
+      ],
+      "skills": ["power-automate", "rpa", "python"]
+    },
+    {
+      "slug": "b2c-commerce-loyalty",
+      "title": "B2C mobile commerce and loyalty",
+      "subtitle": "Ordering and rewards for 20M+ consumers",
+      "category": "Commerce",
+      "company": "IBM",
+      "role": "Product Manager",
+      "summary": "Owned product for B2C mobile apps that let 20M+ consumers order cooking cylinders and related commodities, with 2 integrated payment gateways and a loyalty programme.",
+      "users": "20M+ consumers ordering cooking cylinders and related commodities.",
+      "approach": "- Owned the B2C mobile apps for ordering cooking cylinders and related commodities.\n- Integrated 2 payment gateways.\n- Designed the loyalty programme, letting users earn points and redeem them for vouchers and catalogue products.",
+      "metrics": [
+        { "label": "Consumers served", "value": 20, "unit": "M+" },
+        { "label": "Payment gateways integrated", "value": 2 }
+      ],
+      "skills": []
+    }
+  ],
+
+  "achievements": [
+    { "title": "Zero platform outage under a 4–5x demand surge", "metric_value": 130, "metric_unit": "M+", "metric_context": "users kept online", "category": "Reliability", "work": "demand-surge-zero-outage", "featured": true, "description": "Real-time prioritisation during the Iran-conflict surge (IVRS 10,000→40,000 req/sec; mobile/portal 3,000→18,000 req/sec)." },
+    { "title": "RAG chatbot adopted across 6 business units", "metric_value": 100000, "metric_unit": null, "metric_context": "users (almost)", "category": "AI", "work": "rag-llm-chatbot", "featured": true, "description": "320+ man-hours saved a month and a 30% reduction in L1 turnaround within 90 days of go-live." },
+    { "title": "Black-market cylinder diversion cut", "metric_value": 3, "metric_unit": "%", "metric_context": "of cylinders diverted, down from ~20%", "category": "Supply chain", "work": "petroleum-logistics", "featured": true, "description": "Fuel-density variance tracking plus better damage and inventory visibility." },
+    { "title": "User adoption after the Flutter migration", "metric_value": 5, "metric_unit": "M", "metric_context": "more users within one quarter", "category": "Growth", "work": "flutter-migration" },
+    { "title": "App store rating", "metric_value": 4.5, "metric_unit": "+", "metric_context": "up from 3.4 across ~2M reviews", "category": "Customer", "work": "crm-mobile-platforms", "description": "On an 18M+ active user base, after UAT and A/B tests with 300+ users and a 500+ user field rollout." },
+    { "title": "Customer engagement uplift", "metric_value": 25, "metric_unit": "%", "metric_context": "from use cases and success KPIs", "category": "Customer", "work": "crm-mobile-platforms" },
+    { "title": "Customer satisfaction improvement", "metric_value": 22, "metric_unit": "%", "metric_context": "on CRM and mobile platforms", "category": "Customer", "work": "crm-mobile-platforms" },
+    { "title": "Manual documentation lookup halved", "metric_value": 50, "metric_unit": "%", "metric_context": "less lookup effort (approx.)", "category": "AI", "work": "genai-knowledge-platform", "description": "10,000+ pages indexed; registered as an IBM internal asset." },
+    { "title": "Manual work automated with RPA", "metric_value": 400, "metric_unit": "hrs/mo", "metric_context": "saved across 40+ processes (approx.)", "category": "Automation", "work": "rpa-automation" },
+    { "title": "AMS support reporting automated", "metric_value": 40, "metric_unit": "hrs/week", "metric_context": "saved in global AMS support", "category": "Automation", "work": null, "description": "As a Database Developer, automated SQL Server batch reporting and optimised database workflows, working with users across 15 countries in the EU, Japan and Mexico." }
+  ],
+
+  "certifications": [
+    { "name": "Certified Scrum Product Owner (CSPO)", "issuer": "Scrum Alliance", "featured": true, "skills": ["scrum", "backlog-prioritisation"] },
+    { "name": "IBM AI Product Manager Professional Certificate", "issuer": "IBM", "featured": true, "skills": ["rag-based-ai", "llm-applications"] },
+    { "name": "Oracle Cloud Infrastructure Data Foundations Associate", "issuer": "Oracle", "skills": ["oci"] },
+    { "name": "Microsoft Azure Fundamentals (AZ-900)", "issuer": "Microsoft", "skills": ["microsoft-azure"] }
+  ]
+}

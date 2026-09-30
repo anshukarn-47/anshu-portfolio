@@ -1,0 +1,45 @@
+{
+  "name": "anshu-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "node data/seed/seed.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
+    "framer-motion": "^13.4.4",
+    "next": "15.5.26",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/node": "^20",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "15.5.26",
+    "postcss": "^8",
+    "supabase": "^2.118.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "$postcss",
+    "next": {
+      "postcss": "$postcss"
+    },
+    "@next/eslint-plugin-next": {
+      "glob": "^10.5.0"
+    }
+  }
+}

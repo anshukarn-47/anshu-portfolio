@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   Flight Deck design tokens
+   Theme is chosen with the data-theme attribute on <html> (set before first
+   paint from the visitor's saved choice, see ThemeScript):
+     - no attribute / "dark": dark palette. This is the default for everyone,
+       whatever their OS setting.
+     - "light": light palette.
+     - "system": follows prefers-color-scheme (light palette when the OS is light).
+   The light palette keeps the same hue relationships, lightened, with signals
+   darkened enough to meet WCAG AA as text on every light surface.
+   ============================================================================ */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #0e1216; /* page background */
+  --panel: #171b20; /* card / panel background */
+  --panel-2: #1d232a; /* raised panel background */
+  --rule: #2b323a; /* borders, dividers */
+  --text: #e7ecef; /* primary text: 15.8:1 on ink, 14.5:1 on panel */
+  --text-dim: #93a0ac; /* secondary text: 7.0:1 on ink, 6.5:1 on panel */
+  --text-faint: #7d8894; /* tertiary / meta: 5.2:1 on ink, 4.8:1 on panel (AA); 4.4:1 on panel-2 */
+  --signal-teal: #4fd1c5; /* operational / live / success */
+  --signal-amber: #e8a33d; /* alert / surge / standout metric: at most one per view */
+  --signal-red: #e5566b; /* critical, rare */
+  --signal-blue: #6aa6e8; /* informational accents; calm, distinct from teal: 7.3:1 on ink */
+}
+
+/* Opt-in only: the OS preference applies when the visitor picks "System". */
+@media (prefers-color-scheme: light) {
+  :root[data-theme="system"] {
+    color-scheme: light;
+    --ink: #f4f6f7;
+    --panel: #ffffff;
+    --panel-2: #ebeff2;
+    --rule: #d2d9df;
+    --text: #10151a;
+    --text-dim: #4b5761;
+    --text-faint: #5e6974;
+    --signal-teal: #08756c;
+    --signal-amber: #945805;
+    --signal-red: #b8293f;
+    --signal-blue: #2360a8;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ink: #f4f6f7;
+  --panel: #ffffff;
+  --panel-2: #ebeff2;
+  --rule: #d2d9df;
+  --text: #10151a;
+  --text-dim: #4b5761;
+  --text-faint: #5e6974;
+  --signal-teal: #08756c;
+  --signal-amber: #945805;
+  --signal-red: #b8293f;
+  --signal-blue: #2360a8; /* 6.3:1 on white */
+}
+
+@layer base {
+  body {
+    @apply bg-ink font-sans text-base text-text antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold text-text;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--signal-teal) 35%, transparent);
+  }
+
+  /* Visible keyboard focus everywhere, in the signal colour rather than the browser default. */
+  :focus-visible {
+    outline: 2px solid var(--signal-teal);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Headings and panels that receive focus only from script (tabindex="-1", to move
+     screen-reader users to new content) aren't interactive, so they don't get a ring. */
+  [tabindex="-1"]:focus-visible {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Hero count-up: numbers are hidden from first paint until hydration starts the count
+   (set by an inline script only when the animation is about to run). */
+html[data-hero-count="pending"] .hero-count-value {
+  visibility: hidden;
+  /* Safety net: if hydration never happens, show the real numbers anyway. */
+  animation: hero-count-reveal 0s 2s forwards;
+}
+
+@keyframes hero-count-reveal {
+  to {
+    visibility: visible;
+  }
+}
+
+/* Loading placeholder: a gentle opacity pulse on --panel-2 blocks, only while waiting
+   for the first streamed token. Used via motion-safe:animate-skeleton. */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Live status pulse: the one ambient loop allowed. Used via `motion-safe:animate-status-pulse`,
+   so it never runs when the visitor prefers reduced motion. Teal by default; set --pulse-color
+   on the element for another signal (e.g. the critical incident pill uses --signal-red). */
+@keyframes status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--pulse-color, var(--signal-teal)) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--pulse-color, var(--signal-teal)) 0%, transparent);
+  }
+}
