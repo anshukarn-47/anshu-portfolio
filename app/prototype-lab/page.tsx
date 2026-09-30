@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getPublishedPrototypes } from "@/lib/prototypes";
 import { PROTOTYPES } from "@/lib/prototypes/registry";
 import { EmptyState, PageIntro } from "@/components/ui/page-intro";
-import { PrototypeGrid } from "@/components/prototypes/engine/prototype-grid";
+import { PrototypeGrid, type UpcomingPrototype } from "@/components/prototypes/engine/prototype-grid";
 import { ShowcaseCard } from "@/components/prototypes/showcase-card";
 import { pageMetadata } from "@/lib/site";
 
@@ -16,6 +16,9 @@ export function generateMetadata(): Promise<Metadata> {
 
 // Cached; saving in /admin revalidates immediately. This is a fallback.
 export const revalidate = 3600;
+
+/** Announced prototypes, shown as placeholder cards after the finished ones. Remove an entry once it ships. */
+const UPCOMING: UpcomingPrototype[] = [{ title: "ServiceNow prototype" }];
 
 export default async function PrototypeLabPage() {
   // Interactive prototypes come from the code registry; demos added in /admin come from the database.
@@ -33,9 +36,9 @@ export default async function PrototypeLabPage() {
         <EmptyState>Prototypes are on their way.</EmptyState>
       ) : (
         <>
-          {PROTOTYPES.length > 0 && (
+          {(PROTOTYPES.length > 0 || UPCOMING.length > 0) && (
             <div className="mt-10">
-              <PrototypeGrid prototypes={PROTOTYPES} />
+              <PrototypeGrid prototypes={PROTOTYPES} upcoming={UPCOMING} />
             </div>
           )}
           {active.length > 0 && (
