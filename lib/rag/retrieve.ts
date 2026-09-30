@@ -13,9 +13,92 @@ export type RetrievedChunk = {
 const MATCH_COUNT = 8;
 const MIN_SIMILARITY = 0.25;
 
-/** Top chunks for a question, most similar first. */
+/** Pages whose title names something in the question: how many to add, and passages from each. */
+const TITLE_MATCH_DOCS = 3;
+const TITLE_MATCH_CHUNKS = 2;
+
+/**
+ * Chunks for a question: the most similar passages, plus passages from pages
+ * whose title names something the question asks about (e.g. "ServiceNow" in
+ * "ServiceNow service-management workflow (POC)").
+ *
+ * Similarity alone misses those pages when a short page matches the wording
+ * better: for "What ServiceNow experience does Anshu have?" the ServiceNow
+ * case study ranked below unrelated skills. Both passes read the same
+ * published index.
+ */
 export async function retrieve(question: string, signal?: AbortSignal): Promise<RetrievedChunk[]> {
-  return match(await embedQuery(question, signal), MATCH_COUNT);
+  const [similar, titled] = await Promise.all([embedQuery(question, signal).then((e) => match(e, MATCH_COUNT)), titleMatches(question)]);
+  const seen = new Set(similar.map((c) => c.chunkId));
+  return [...similar, ...titled.filter((c) => !seen.has(c.chunkId))];
+}
+
+/** Words that say nothing about which page is meant. */
+const STOPWORDS = new Set(
+  (
+    "a an the and or but of to in on at by for with from into about as is are was were be been being has have had do does did done " +
+    "what which who whom whose when where why how can could would should will shall may might must tell me more any some all most " +
+    "his her their them they he she it its this that these those there here your you i my our we us " +
+    "experience experienced work worked working works skill skills project projects case study studies portfolio role roles " +
+    "product products manager management managing lead led build built use used using know knows knowledge job jobs"
+  ).split(" ")
+);
+
+const words = (s: string) => s.toLowerCase().split(/[^a-z0-9+#]+/).filter(Boolean);
+
+/** Case studies first: they carry the most detail. */
+const TYPE_RANK: Record<string, number> = { work: 0, prototype: 1, certification: 2, achievement: 3, skill: 4 };
+
+/**
+ * Passages from up to TITLE_MATCH_DOCS pages whose title (without its "Skill: "
+ * style prefix) shares a distinctive word with the question. The owner's name
+ * is ignored, since every page is about them. Failures only drop this pass.
+ */
+async function titleMatches(question: string): Promise<RetrievedChunk[]> {
+  try {
+    const db = createAdminClient();
+    const { data: docs, error } = await db.from("documents").select("id, title, source_type");
+    if (error || !docs) return [];
+
+    const owner = new Set(words(docs.find((d) => d.source_type === "profile")?.title.replace(/^About\s+/i, "") ?? ""));
+    const terms = new Set(words(question).filter((w) => (w.length >= 3 || /^[a-z]{2}$/.test(w)) && !STOPWORDS.has(w) && !owner.has(w)));
+    if (!terms.size) return [];
+
+    const matched = docs
+      .filter((d) => d.source_type !== "profile")
+      .map((d) => ({ ...d, hits: words(d.title.replace(/^[^:]+:\s*/, "")).filter((w) => terms.has(w)).length }))
+      .filter((d) => d.hits > 0)
+      .sort((a, b) => b.hits - a.hits || (TYPE_RANK[a.source_type] ?? 9) - (TYPE_RANK[b.source_type] ?? 9))
+      .slice(0, TITLE_MATCH_DOCS);
+    if (!matched.length) return [];
+
+    const { data: chunks, error: chunkError } = await db
+      .from("document_chunks")
+      .select("id, document_id, chunk_index, content, metadata")
+      .in("document_id", matched.map((d) => d.id))
+      .lt("chunk_index", TITLE_MATCH_CHUNKS)
+      .order("chunk_index");
+    if (chunkError || !chunks) return [];
+
+    return matched.flatMap((d) =>
+      chunks
+        .filter((c) => c.document_id === d.id)
+        .map((c) => {
+          const meta = c.metadata && typeof c.metadata === "object" && !Array.isArray(c.metadata) ? (c.metadata as Record<string, unknown>) : {};
+          const url = meta.url;
+          return {
+            chunkId: c.id,
+            title: d.title,
+            url: typeof url === "string" && url.startsWith("/") && !url.startsWith("//") ? url : null,
+            content: c.content,
+            similarity: 0, // found by title, not by similarity
+          };
+        })
+    );
+  } catch (err) {
+    console.error("[retrieve] title match failed", err);
+    return [];
+  }
 }
 
 /**
