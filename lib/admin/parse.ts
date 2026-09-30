@@ -30,7 +30,8 @@ export function parseEntityForm(config: EntityConfig, formData: FormData): Parse
 
   for (const field of config.sections.flatMap((s) => s.fields)) {
     const raw = formData.get(field.name);
-    let str = typeof raw === "string" ? raw.trim() : "";
+    // Browsers submit textarea line breaks as \r\n; store plain \n so paragraph splits and markdown behave the same everywhere.
+    let str = typeof raw === "string" ? raw.replace(/\r\n?/g, "\n").trim() : "";
 
     if (field.type === "boolean") {
       values[field.name] = raw === "on";

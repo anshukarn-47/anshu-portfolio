@@ -26,7 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /** First paragraph of the bio (the part before any markdown heading or list). */
 function intro(bio: string | null | undefined): string | null {
-  const first = bio?.split(/\n{2,}/).find((p) => p.trim() && !/^[#*-]/.test(p.trim()));
+  // Tolerates \r\n line endings: a blank line is any line break, optional whitespace, and another break.
+  const first = bio?.split(/\r?\n[ \t]*\r?\n/).find((p) => p.trim() && !/^[#*-]/.test(p.trim()));
   return first?.trim() ?? null;
 }
 
