@@ -130,6 +130,48 @@ export const PROTOTYPES: PrototypeEntry[] = [
     relatedWorkSlug: "petroleum-logistics",
     revealAfterPlay: true,
   },
+  {
+    slug: "resolve-x",
+    title: "RESOLVE//X",
+    category: "Think",
+    hook: "One issue. Multiple systems. One resolution.",
+    pmLens: {
+      user: "Service desk agents working the queues, and the customers waiting on the other side of each incident.",
+      problem: "Triage is slow and inconsistent, so incidents wait in the wrong queue, and the same incidents keep coming back.",
+      signal: "Repeat incidents and SLA risk: a recurring failure shows up as similar incidents piling up and countdowns running short.",
+      decision: "When to link similar incidents to one problem, how to route each one, and which repeatable triage to automate.",
+    },
+    whatIWouldMeasure: {
+      primary: "SLA compliance.",
+      guardrail: "Customer satisfaction (CSAT).",
+      leadingIndicator: "Repeat-incident count.",
+      failureMode: "Noisy auto-created problem records: automation that opens more records than it resolves.",
+    },
+    tradeoffs: [
+      {
+        a: "Speed of resolution",
+        b: "Thoroughness of root-cause work",
+        choice: "Speed of resolution",
+        why: "Restore service first with a workaround, so customers can carry on now, but link the incidents to a problem record so the root-cause work isn't lost once the queue is quiet.",
+      },
+      {
+        a: "Automation coverage",
+        b: "Avoiding noisy records",
+        choice: "Avoiding noisy records",
+        why: "Automate narrowly, on a specific failure pattern. A rule that fires on small or loosely grouped clusters creates records and alerts that someone has to review, which costs more triage time than it saves.",
+      },
+      {
+        a: "Detail for the customer",
+        b: "Technical accuracy",
+        choice: "Detail for the customer",
+        why: "Plain language about what is known, what to do now and when the next update comes. Precise technical detail belongs on the incident and the problem record.",
+      },
+    ],
+    // The shift ends with its own real-world reveal ("What I actually did"), so the case study waits until then.
+    revealAfterPlay: true,
+    // Case study mode shows the real ServiceNow POC write-up; the canvas itself stays fictional.
+    relatedWorkSlug: "servicenow-service-management",
+  },
 ];
 
 export function getPrototypeEntry(slug: string): PrototypeEntry | null {

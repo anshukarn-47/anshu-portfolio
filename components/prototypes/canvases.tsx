@@ -4,6 +4,7 @@ import type { ComponentType } from "react";
 import type { PrototypeCaseStudy } from "@/components/prototypes/engine/case-study-view";
 import { CrisisSimulator } from "./crisis-simulator/crisis-simulator";
 import { ControlTower } from "./control-tower/control-tower";
+import { ResolveX } from "./resolve-x/resolve-x";
 
 /** What every canvas receives from the viewer. */
 export type CanvasProps = {
@@ -17,4 +18,5 @@ export type CanvasProps = {
 export const PROTOTYPE_CANVASES: Record<string, ComponentType<CanvasProps>> = {
   "crisis-simulator": CrisisSimulator,
   "control-tower-24": ControlTower,
+  "resolve-x": ResolveX,
 };
