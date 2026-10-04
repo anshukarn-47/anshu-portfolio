@@ -58,11 +58,12 @@ export const ARCADE: ArcadeEntry[] = [
     status: "published",
   },
   {
-    slug: "knowledge-maze",
-    title: "Knowledge maze",
-    hook: "One customer question, a fogged map of documents. Find current evidence, then send a grounded answer.",
-    mechanic: "Explore a document map and collect evidence",
+    slug: "neural-maze",
+    title: "Neural Maze",
+    hook: "Collect current sources, avoid unsupported claims, answer from evidence.",
+    mechanic: "Retrieval maze",
     duration: ARCADE_DURATION,
+    // The requested rag-crm-assistant record doesn't exist; these two are the closest published records.
     relatedWorkSlug: "genai-knowledge-platform",
     moreWorkSlugs: ["rag-llm-chatbot"],
     relatedSimulation: null,

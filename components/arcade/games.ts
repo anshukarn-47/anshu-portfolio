@@ -8,7 +8,7 @@ export const ARCADE_GAME_LOADERS: Record<string, () => Promise<GameDefinition>> 
   "capacity-fit": () => import("./games/capacity-fit").then((m) => m.capacityFit),
   "automation-bundles": () => import("./games/automation-bundles").then((m) => m.automationBundles),
   "sprint-slice": () => import("./games/sprint-slice").then((m) => m.sprintSlice),
-  "knowledge-maze": () => import("./games/knowledge-maze").then((m) => m.knowledgeMaze),
+  "neural-maze": () => import("./games/neural-maze").then((m) => m.neuralMaze),
   "stack-link": () => import("./games/stack-link").then((m) => m.stackLink),
   "release-run": () => import("./games/release-run").then((m) => m.releaseRun),
 };
