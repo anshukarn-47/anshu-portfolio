@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node data/seed/seed.mjs"
+    "seed": "node data/seed/seed.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",
@@ -31,7 +33,8 @@
     "postcss": "^8",
     "supabase": "^2.118.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   },
   "overrides": {
     "postcss": "$postcss",

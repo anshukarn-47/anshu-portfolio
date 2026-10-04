@@ -7,7 +7,7 @@ The reference for every game in the Arcade (`/arcade`). Each new game follows al
 | What | Where |
 | --- | --- |
 | Game list (slug, title, hook, mechanic, duration, work record, status) | `lib/arcade/registry.ts` |
-| Game data (items, levels, documents), one file per game | `lib/arcade/games/<slug>.ts` |
+| Game data (items, levels, documents), one file per game, or a folder for a larger game (Neural Maze uses `lib/arcade/neural-maze/`) | `lib/arcade/games/<slug>.ts` |
 | Game play component and its tutorial, debrief text and scoring note | `components/arcade/games/<slug>.tsx` |
 | Playable games by slug, each loaded on demand as its own bundle (add a loader line per game) | `components/arcade/games.ts` |
 | Shared frame: phases, relaxed mode, pause, restart | `components/arcade/game-shell.tsx` |
@@ -15,6 +15,7 @@ The reference for every game in the Arcade (`/arcade`). Each new game follows al
 | Debrief and real-world case | `components/arcade/debrief.tsx` |
 | Real-world case loader (Supabase work record) | `lib/arcade/case-study.ts` |
 | Analytics events | `lib/analytics/shared.ts`, sent with `trackEvent` from `components/analytics/tracker.tsx` |
+| Tests for the rules and scoring (pure logic, no DOM), one file per game | `tests/arcade/<slug>.test.ts`, run with `npm test` |
 
 ## The rules
 
@@ -78,3 +79,9 @@ The reference for every game in the Arcade (`/arcade`). Each new game follows al
 - Through the existing utility, with the `arcade_` prefix.
 - The shell already sends `arcade_game_start`, `arcade_game_complete`, `arcade_debrief_view` and `arcade_case_study_open`, with the game slug as the target.
 - A new event name must be added to `TRACKED_EVENTS` in `lib/analytics/shared.ts`, or `/api/track` rejects it.
+
+### 11. Tests
+
+- Keep every game's rules and scoring in pure functions, with a test file in `tests/arcade/`.
+- Test what the game claims: what the score rewards (good decisions beat filling, speed or volume), the fixed level and data invariants, and the effect of each mechanic.
+- Run `npm test` before every push.
