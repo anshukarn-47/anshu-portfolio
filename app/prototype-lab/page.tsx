@@ -19,7 +19,7 @@ export function generateMetadata(): Promise<Metadata> {
 export const revalidate = 3600;
 
 /** Announced prototypes, shown as placeholder cards after the finished ones. Remove an entry once it ships. */
-const UPCOMING: UpcomingPrototype[] = [{ title: "ServiceNow prototype" }];
+const UPCOMING: UpcomingPrototype[] = [];
 
 export default async function PrototypeLabPage() {
   // Interactive prototypes come from the code registry; demos added in /admin come from the database.
