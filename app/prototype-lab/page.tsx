@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getPublishedPrototypes } from "@/lib/prototypes";
 import { PROTOTYPES } from "@/lib/prototypes/registry";
 import { EmptyState, PageIntro } from "@/components/ui/page-intro";
@@ -71,6 +72,14 @@ export default async function PrototypeLabPage() {
           )}
         </>
       )}
+
+      <Link
+        href="/arcade"
+        className="mt-12 flex flex-col rounded-lg border border-rule bg-panel p-4 transition-colors hover:bg-panel-2 sm:inline-flex"
+      >
+        <span className="text-sm font-medium text-text">Quick games →</span>
+        <span className="mt-1 text-xs text-text-dim">The Arcade: 60 to 120 seconds each</span>
+      </Link>
     </main>
   );
 }

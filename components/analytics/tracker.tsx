@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { isUntrackedPath, type TrackPayload } from "@/lib/analytics/shared";
+import { isUntrackedPath, type TrackPayload, type TrackedEvent } from "@/lib/analytics/shared";
 
 /** Visitors who ask not to be tracked (Do Not Track or Global Privacy Control) aren't. */
 function optedOut(): boolean {
@@ -17,6 +17,11 @@ function send(payload: TrackPayload) {
   if (!navigator.sendBeacon?.("/api/track", new Blob([body], { type: "application/json" }))) {
     fetch("/api/track", { method: "POST", body, keepalive: true, headers: { "Content-Type": "application/json" } }).catch(() => {});
   }
+}
+
+/** Sends one named event for the current page (e.g. an arcade game starting), with an optional target such as a slug. */
+export function trackEvent(name: TrackedEvent, target?: string) {
+  send({ name, path: window.location.pathname, target: target ?? null });
 }
 
 /**

@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { createPublicClient } from "@/lib/supabase/public";
 import { PROTOTYPES } from "@/lib/prototypes/registry";
+import { PUBLISHED_GAMES } from "@/lib/arcade/registry";
 import { SITE_URL } from "@/lib/site";
 
 // Refreshed with the content it lists (saving in /admin revalidates too).
 export const revalidate = 3600;
 
-/** Every public page: the fixed sections, published case studies and prototypes. Never /admin or /api. */
+/** Every public page: the fixed sections, published case studies, prototypes and arcade games. Never /admin or /api. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = createPublicClient();
   // Anonymous reads: RLS only returns published rows, so drafts can't leak into the sitemap.
@@ -26,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: url("/certifications"), changeFrequency: "monthly", priority: 0.6 },
     { url: url("/achievements"), changeFrequency: "monthly", priority: 0.6 },
     { url: url("/prototype-lab"), changeFrequency: "monthly", priority: 0.7 },
+    { url: url("/arcade"), changeFrequency: "monthly", priority: 0.7 },
     { url: url("/ai-lab"), changeFrequency: "monthly", priority: 0.6 },
     { url: url("/ai-lab/career-agent"), changeFrequency: "monthly", priority: 0.6 },
   ];
@@ -35,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...sections,
     ...(work.data ?? []).map((w) => ({ url: url(`/work/${w.slug}`), lastModified: w.updated_at, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...PROTOTYPES.map((p) => ({ url: url(`/prototype-lab/${p.slug}`), changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...PUBLISHED_GAMES.map((g) => ({ url: url(`/arcade/${g.slug}`), changeFrequency: "monthly" as const, priority: 0.6 })),
     ...(prototypes.data ?? [])
       .filter((p) => !registrySlugs.has(p.slug))
       .map((p) => ({ url: url(`/prototype-lab/${p.slug}`), lastModified: p.updated_at, changeFrequency: "monthly" as const, priority: 0.6 })),
