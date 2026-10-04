@@ -51,6 +51,10 @@ const nextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
+  async redirects() {
+    // Knowledge maze was replaced by Neural Maze; keep old links working.
+    return [{ source: "/arcade/knowledge-maze", destination: "/arcade/neural-maze", permanent: true }];
+  },
 };
 
 export default nextConfig;
