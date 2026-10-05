@@ -12,7 +12,7 @@ import { CaseStudyOverlay } from "./case-study-overlay";
  * sharing that URL loads the full server-rendered page instead.
  * Modified clicks (new tab, etc.) keep normal link behaviour.
  */
-export function WorkGrid({ work, className = "" }: { work: WorkSummary[]; className?: string }) {
+export function WorkGrid({ work, className = "", headingLevel = 3 }: { work: WorkSummary[]; className?: string; headingLevel?: 2 | 3 }) {
   const [open, setOpen] = useState<WorkSummary | null>(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function WorkGrid({ work, className = "" }: { work: WorkSummary[]; classN
       <ul className={className}>
         {work.map((w) => (
           <li key={w.id}>
-            <WorkCard work={w} onOpen={(e) => openCard(w, e)} />
+            <WorkCard work={w} onOpen={(e) => openCard(w, e)} headingLevel={headingLevel} />
           </li>
         ))}
       </ul>

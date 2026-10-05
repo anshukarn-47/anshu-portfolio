@@ -27,13 +27,23 @@ export function cardVariant(work: WorkSummary): CardVariant {
 
 export const workLayoutId = (slug: string) => `work-card-${slug}`;
 
-export function WorkCard({ work, onOpen }: { work: WorkSummary; onOpen?: (e: React.MouseEvent<HTMLAnchorElement>) => void }) {
+export function WorkCard({
+  work,
+  onOpen,
+  headingLevel = 3,
+}: {
+  work: WorkSummary;
+  onOpen?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  /** 3 under a section heading (homepage); 2 directly under the page title (/work). */
+  headingLevel?: 2 | 3;
+}) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   const variant = cardVariant(work);
   const meta = [work.category, work.company, work.year].filter(Boolean).join(" · ");
 
   const text = (
     <div className="min-w-0 flex-1">
-      <h3 className="text-xl text-text">{work.title}</h3>
+      <Heading className="text-xl text-text">{work.title}</Heading>
       {meta && <p className="mt-1 text-sm text-text-faint">{meta}</p>}
       {work.summary && <p className="mt-3 text-sm text-text-dim">{work.summary}</p>}
     </div>

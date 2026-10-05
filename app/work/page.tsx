@@ -25,7 +25,7 @@ export default async function WorkIndexPage() {
       {work.length === 0 ? (
         <EmptyState>Case studies are on their way.</EmptyState>
       ) : (
-        <WorkGrid work={work} className="mt-10 grid gap-4 md:grid-cols-2" />
+        <WorkGrid work={work} headingLevel={2} className="mt-10 grid gap-4 md:grid-cols-2" />
       )}
     </main>
   );
