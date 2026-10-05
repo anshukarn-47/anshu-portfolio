@@ -1,7 +1,7 @@
 import type { Status } from "@/components/prototypes/engine/status";
 
 /**
- * TOWER // 24: a day of dispatch in a distribution network. The network layout,
+ * Control tower: a day of dispatch in a distribution network. The network layout,
  * starting values and each mission's rules and outcomes, as pure data and logic.
  */
 

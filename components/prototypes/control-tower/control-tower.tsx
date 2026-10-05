@@ -51,7 +51,7 @@ import { ShiftEnd } from "./shift-end";
 import type { PrototypeCaseStudy } from "@/components/prototypes/engine/case-study-view";
 
 /**
- * TOWER // 24 canvas: the mission briefing, then the control tower (status
+ * Control tower canvas: the mission briefing, then the control tower (status
  * bar, network map, dashboard panels, Missions 01–03 and Strategy Mode), then
  * the end-of-shift summary once the player ends the shift.
  */
@@ -400,7 +400,7 @@ function Tower({ caseStudy, onComplete }: { caseStudy: PrototypeCaseStudy | null
           </h3>
           <p className="mt-1 max-w-prose text-sm text-text-dim">
             Missions 01 to 03 are resolved. Strategy Mode is optional: set a policy or try the AI Dispatcher first if you like. Ending the shift
-            shows your 24-hour operating summary and the real product behind TOWER // 24.
+            shows your 24-hour operating summary and the real product behind this control tower.
           </p>
           <button
             type="button"

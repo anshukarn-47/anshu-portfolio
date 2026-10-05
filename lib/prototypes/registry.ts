@@ -35,6 +35,8 @@ export type PrototypeEntry = {
   category: PrototypeCategory;
   /** One-line description for cards and the header. */
   hook: string;
+  /** Other names people might use (plain spellings, former names). Indexed for Ask Anshu, not shown on the page. */
+  aliases?: string[];
   pmLens: PmLens;
   whatIWouldMeasure: Measures;
   tradeoffs: Tradeoff[];
@@ -51,6 +53,7 @@ export const PROTOTYPES: PrototypeEntry[] = [
   {
     slug: "crisis-simulator",
     title: "Crisis simulator",
+    aliases: ["crisis sim", "war room simulator", "demand surge simulation"],
     category: "Think",
     hook: "Run the war room through a sudden 4–5x demand surge and decide what to protect.",
     pmLens: {
@@ -91,7 +94,8 @@ export const PROTOTYPES: PrototypeEntry[] = [
   },
   {
     slug: "control-tower-24",
-    title: "TOWER // 24",
+    title: "Control tower",
+    aliases: ["TOWER // 24", "Tower 24", "logistics control tower", "dispatch simulation"],
     category: "Analyze",
     hook: "Operate the network. Protect the customer. Optimize the system.",
     pmLens: {
@@ -133,6 +137,7 @@ export const PROTOTYPES: PrototypeEntry[] = [
   {
     slug: "resolve-x",
     title: "RESOLVE//X",
+    aliases: ["Resolve X", "ResolveX", "Resolve-X", "the ServiceNow prototype", "service management prototype", "incident management simulation"],
     category: "Think",
     hook: "One issue. Multiple systems. One resolution.",
     pmLens: {

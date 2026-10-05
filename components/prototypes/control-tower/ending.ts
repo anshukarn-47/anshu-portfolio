@@ -1,5 +1,5 @@
 /**
- * TOWER // 24's decision log entries and the end of the shift: the summary,
+ * Control tower's decision log entries and the end of the shift: the summary,
  * the operating-style observations and the Decision Replay principles, all
  * derived from the logged decisions. Pure data and logic.
  */

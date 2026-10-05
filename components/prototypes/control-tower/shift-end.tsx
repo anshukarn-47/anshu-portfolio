@@ -8,7 +8,7 @@ import { BASELINE_UTILISATION, INITIAL, formatClock, inr, type DecisionKind, typ
 import { DAY_PLAN_TRUCKS, FLEET_TOTAL, operatingStyle, principleOf, shiftSummary, type ShiftSummary } from "./ending";
 
 /**
- * The end of TOWER // 24: "Network shift complete" (never a win/lose
+ * The end of Control tower: "Network shift complete" (never a win/lose
  * message), the 24-hour operating summary, operating-style observations, the
  * real product problem from the work record, Decision Replay, and the
  * portfolio bridge. Everything is derived from the decision log and the
@@ -297,7 +297,7 @@ function DecisionReplay({ log }: { log: DecisionLogEntry[] }) {
 
 function PortfolioBridge({ caseStudySlug }: { caseStudySlug: string | null }) {
   const links = [
-    { href: caseStudySlug ? `/work/${caseStudySlug}` : "/work", label: "Read the logistics case study", note: "The real product behind TOWER // 24" },
+    { href: caseStudySlug ? `/work/${caseStudySlug}` : "/work", label: "Read the logistics case study", note: "The real product behind the Control tower prototype" },
     { href: "/prototype-lab", label: "Explore my other prototypes", note: "More product decisions to try" },
     { href: "/ai-lab", label: "Ask Anshu about this work", note: "Questions answered from the portfolio" },
   ];

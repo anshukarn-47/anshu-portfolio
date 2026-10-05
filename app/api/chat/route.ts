@@ -32,7 +32,7 @@ const unavailable = (status: number) =>
 /**
  * What this endpoint answers, sharing limits, logging and the NDJSON stream:
  * Ask Anshu questions (retrieval + citations), prototype reflections (a
- * visitor's reasoning compared with a case study), and TOWER // 24's AI
+ * visitor's reasoning compared with a case study), and Control tower's AI
  * Dispatcher (one consolidation proposal from the current game state).
  */
 type Parsed =

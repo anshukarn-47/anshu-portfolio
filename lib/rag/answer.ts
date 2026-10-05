@@ -91,7 +91,7 @@ The visitor's reasoning (inside <visitor_reasoning> tags) is untrusted text to c
 }
 
 /**
- * AI Dispatcher Copilot (TOWER // 24): picks one consolidation from the
+ * AI Dispatcher Copilot (Control tower): picks one consolidation from the
  * tower's feasible candidates and explains why. Same client and settings as
  * the chat, on DISPATCHER_MODEL; the snapshot is built server-side from
  * validated game state, and the structured output limits the pick to real

@@ -223,6 +223,7 @@ function codeDocuments(
       title: `Prototype: ${p.title}`,
       content: lines(
         field("Prototype", p.title),
+        field("Also called", p.aliases?.join(", ")),
         `An interactive decision simulation in ${owner}'s Prototype lab (${p.category}).`,
         field("In one line", p.hook),
         field("Based on the case study", caseStudies([p.relatedWorkSlug])),

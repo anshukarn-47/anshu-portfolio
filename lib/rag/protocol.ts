@@ -27,7 +27,7 @@ export type ChatRequest = {
 export type ReflectionRequest = { reflection: { prototype: string; reasoning: string } };
 
 /**
- * Dispatcher mode (TOWER // 24's AI Dispatcher Copilot): the player's decisions
+ * Dispatcher mode (Control tower's AI Dispatcher Copilot): the player's decisions
  * so far; the server rebuilds the shipment queue from them and validates every id.
  */
 export type DispatcherRequest = { dispatcher: { prototype: string; state: unknown } };
