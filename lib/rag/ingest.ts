@@ -7,8 +7,10 @@ import { buildPublicDocuments, type SourceDocument } from "./sources";
 
 export type IngestResult = { documents: number; updated: number; unchanged: number; removed: number; chunks: number };
 
-/** Source types owned by this job. Documents of other types (e.g. manual notes) are left alone. */
-const MANAGED_TYPES = ["profile", "work", "skill", "certification", "achievement", "prototype"];
+/** Source types owned by this job. Notes are owned only when generated (metadata.generated); hand-added notes are left alone. */
+const MANAGED_TYPES = ["profile", "work", "skill", "certification", "achievement", "prototype", "note"];
+const isManaged = (d: { source_type: string; metadata: unknown }) =>
+  d.source_type !== "note" || (!!d.metadata && typeof d.metadata === "object" && (d.metadata as Record<string, unknown>).generated === true);
 
 const docKey = (d: { source_type: string; source_id: string | null }) =>
   d.source_type === "profile" ? "profile" : `${d.source_type}:${d.source_id}`;
@@ -23,11 +25,12 @@ export async function rebuildIndex(): Promise<IngestResult> {
   const db = createAdminClient();
   const [sources, existingRes] = await Promise.all([
     buildPublicDocuments(),
-    db.from("documents").select("id, source_type, source_id, checksum").in("source_type", MANAGED_TYPES),
+    db.from("documents").select("id, source_type, source_id, checksum, metadata").in("source_type", MANAGED_TYPES),
   ]);
   if (existingRes.error) throw new Error(`Failed to read the index: ${existingRes.error.message}`);
 
-  const existing = new Map((existingRes.data ?? []).map((d) => [docKey(d), d]));
+  const owned = (existingRes.data ?? []).filter(isManaged);
+  const existing = new Map(owned.map((d) => [docKey(d), d]));
   const checksum = (d: SourceDocument) =>
     createHash("sha256").update(`${EMBEDDING_MODEL}\n${d.title}\n${d.url}\n${d.content}`).digest("hex");
 
@@ -51,7 +54,7 @@ export async function rebuildIndex(): Promise<IngestResult> {
       title: doc.title,
       content: doc.content,
       checksum: null as string | null, // set only after chunks are written
-      metadata: { url: doc.url },
+      metadata: doc.generated ? { url: doc.url, generated: true } : { url: doc.url },
     };
     const prior = existing.get(doc.key);
     const saved = prior
@@ -81,7 +84,7 @@ export async function rebuildIndex(): Promise<IngestResult> {
 
   // 3. Remove documents whose source no longer exists or was unpublished.
   const keep = new Set(sources.map((d) => d.key));
-  const stale = (existingRes.data ?? []).filter((d) => !keep.has(docKey(d))).map((d) => d.id);
+  const stale = owned.filter((d) => !keep.has(docKey(d))).map((d) => d.id);
   if (stale.length) {
     const rm = await db.from("documents").delete().in("id", stale);
     if (rm.error) throw new Error(`Failed to remove stale documents: ${rm.error.message}`);

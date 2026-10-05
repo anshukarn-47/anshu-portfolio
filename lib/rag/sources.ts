@@ -1,18 +1,33 @@
 import "server-only";
+import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
 import { formatMetric, formatMonthYear, isPastDate } from "@/lib/format";
 import { stageLabel } from "@/lib/admin/entities";
+import { PROTOTYPES } from "@/lib/prototypes/registry";
+import { ARCADE, PUBLISHED_GAMES } from "@/lib/arcade/registry";
 
 /** A piece of public content to index. `key` identifies it across rebuilds. */
 export type SourceDocument = {
   key: string;
-  source_type: "profile" | "work" | "skill" | "certification" | "achievement" | "prototype";
+  source_type: "profile" | "work" | "skill" | "certification" | "achievement" | "prototype" | "note";
   source_id: string | null;
   title: string;
   content: string;
   url: string;
+  /** Generated from code (not a database row): marks notes this job owns, so hand-added notes are left alone. */
+  generated?: boolean;
 };
+
+/**
+ * A stable UUID for content defined in code, which has no database id: the
+ * same key always gives the same id, so rebuilds update rather than duplicate.
+ */
+export function stableId(key: string) {
+  const h = createHash("sha1").update(`anshu-portfolio:${key}`).digest("hex");
+  const variant = ((parseInt(h.slice(16, 18), 16) & 0x3f) | 0x80).toString(16).padStart(2, "0");
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-5${h.slice(13, 16)}-${variant}${h.slice(18, 20)}-${h.slice(20, 32)}`;
+}
 
 /**
  * Reads as an anonymous visitor, so RLS guarantees only published content is
@@ -170,5 +185,143 @@ export async function buildPublicDocuments(): Promise<SourceDocument[]> {
     });
   }
 
+  const workTitle = new Map((work.data ?? []).map((w) => [w.slug, w.title]));
+  docs.push(...codeDocuments(owner, workTitle, {
+    workCount: work.data?.length ?? 0,
+    skillCount: skills.data?.length ?? 0,
+    certificationCount: certifications.data?.length ?? 0,
+    achievementCount: achievements.data?.length ?? 0,
+    experiments: (prototypes.data ?? []).map((p) => p.title),
+  }));
+
   return docs.filter((d) => d.content.trim().length > 0);
+}
+
+/**
+ * Content that lives in code rather than the database: the Prototype lab's
+ * interactive simulations, the Arcade's games, and short overview notes of the
+ * site's sections. Everything here is public on the site already.
+ */
+function codeDocuments(
+  owner: string,
+  workTitle: Map<string, string>,
+  counts: { workCount: number; skillCount: number; certificationCount: number; achievementCount: number; experiments: string[] }
+): SourceDocument[] {
+  const docs: SourceDocument[] = [];
+  const caseStudies = (slugs: (string | null | undefined)[]) =>
+    slugs
+      .filter((s): s is string => !!s && workTitle.has(s))
+      .map((s) => `${workTitle.get(s)} (/work/${s})`)
+      .join("; ");
+
+  for (const p of PROTOTYPES) {
+    const id = stableId(`prototype-lab:${p.slug}`);
+    docs.push({
+      key: `prototype:${id}`,
+      source_type: "prototype",
+      source_id: id,
+      title: `Prototype: ${p.title}`,
+      content: lines(
+        field("Prototype", p.title),
+        `An interactive decision simulation in ${owner}'s Prototype lab (${p.category}).`,
+        field("In one line", p.hook),
+        field("Based on the case study", caseStudies([p.relatedWorkSlug])),
+        "",
+        section(
+          "Product lens",
+          lines(field("User", p.pmLens.user), field("Problem", p.pmLens.problem), field("Signal", p.pmLens.signal), field("Decision", p.pmLens.decision))
+        ),
+        "",
+        section(
+          "What I'd measure",
+          lines(
+            field("Primary metric", p.whatIWouldMeasure.primary),
+            field("Guardrail", p.whatIWouldMeasure.guardrail),
+            field("Leading indicator", p.whatIWouldMeasure.leadingIndicator),
+            field("Failure mode", p.whatIWouldMeasure.failureMode)
+          )
+        ),
+        "",
+        section("Trade-offs", p.tradeoffs.map((t) => `- ${t.a} vs ${t.b}: chose ${t.choice}. ${t.why}`).join("\n"))
+      ),
+      url: `/prototype-lab/${p.slug}`,
+    });
+  }
+
+  for (const g of PUBLISHED_GAMES) {
+    const id = stableId(`arcade:${g.slug}`);
+    const simulation = g.relatedSimulation ? PROTOTYPES.find((p) => p.slug === g.relatedSimulation) : undefined;
+    docs.push({
+      key: `prototype:${id}`,
+      source_type: "prototype",
+      source_id: id,
+      title: `Arcade game: ${g.title}`,
+      content: lines(
+        field("Game", g.title),
+        `A short game in ${owner}'s Arcade, built on one decision from the work. Every run ends with the real case behind it.`,
+        field("In one line", g.hook),
+        field("Mechanic", g.mechanic),
+        field("Length", g.duration),
+        field("Based on the case study", caseStudies([g.relatedWorkSlug, ...(g.moreWorkSlugs ?? [])])),
+        field("Related Prototype lab simulation", simulation ? `${simulation.title} (/prototype-lab/${simulation.slug})` : null),
+        "",
+        section("How it plays", g.about)
+      ),
+      url: `/arcade/${g.slug}`,
+    });
+  }
+
+  const note = (key: string, title: string, url: string, content: string): SourceDocument => {
+    const id = stableId(`note:${key}`);
+    return { key: `note:${id}`, source_type: "note", source_id: id, title, content, url, generated: true };
+  };
+  const soon = ARCADE.filter((g) => g.status === "soon");
+
+  docs.push(
+    note(
+      "arcade",
+      "Arcade: quick decision games",
+      "/arcade",
+      lines(
+        `The Arcade (/arcade) is a section of ${owner}'s portfolio: "Don't just read about my decisions. Play them."`,
+        `It has ${PUBLISHED_GAMES.length} short games, each ${PUBLISHED_GAMES[0]?.duration ?? "60–120 seconds"} long and built on one decision from the work. Every game runs tutorial, play, debrief and the real case from a work record. Data is fictional and results are simulated; scores reward decision quality, not speed. There is a relaxed mode with no timer.`,
+        "",
+        section("Games", PUBLISHED_GAMES.map((g) => `- ${g.title} (/arcade/${g.slug}): ${g.hook}`).join("\n")),
+        soon.length ? section("Coming soon", soon.map((g) => `- ${g.title}`).join("\n")) : null,
+        "",
+        "For longer decision simulations, see the Prototype lab (/prototype-lab)."
+      )
+    ),
+    note(
+      "prototype-lab",
+      "Prototype lab: interactive prototypes",
+      "/prototype-lab",
+      lines(
+        `The Prototype lab (/prototype-lab) holds ${owner}'s interactive prototypes that put you in the product decision, plus experiments and works in progress.`,
+        "",
+        section("Interactive prototypes", PROTOTYPES.map((p) => `- ${p.title} (/prototype-lab/${p.slug}): ${p.hook}`).join("\n")),
+        counts.experiments.length ? section("Experiments", counts.experiments.map((t) => `- ${t}`).join("\n")) : null,
+        "",
+        "For short games built on the same kind of decisions, see the Arcade (/arcade)."
+      )
+    ),
+    note(
+      "site-overview",
+      "Site overview: what's on this portfolio",
+      "/",
+      lines(
+        `${owner}'s portfolio has these sections:`,
+        `- Work (/work): ${counts.workCount} case studies.`,
+        `- Skills (/skills): ${counts.skillCount} skills.`,
+        `- Certifications (/certifications): ${counts.certificationCount} certifications.`,
+        `- Achievements (/achievements): ${counts.achievementCount} achievements.`,
+        `- Prototype lab (/prototype-lab): ${PROTOTYPES.length} interactive prototypes (${PROTOTYPES.map((p) => p.title).join(", ")}).`,
+        `- Arcade (/arcade): ${PUBLISHED_GAMES.length} short decision games (${PUBLISHED_GAMES.map((g) => g.title).join(", ")}).`,
+        "- AI lab (/ai-lab): Ask Anshu. Ask questions about this portfolio; answers come from the site's own content.",
+        "- Career agent (/ai-lab/career-agent): paste a job description and see how the portfolio's evidence maps to each requirement.",
+        "- About (/about): background and contact."
+      )
+    )
+  );
+  return docs;
 }
